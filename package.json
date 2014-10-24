@@ -1,0 +1,33 @@
+{
+  "name": "set-in",
+  "version": "0.0.0",
+  "description": "set value of nested associative structure given array of keys",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "tape test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/openappjs/set-in.git"
+  },
+  "keywords": [
+    "object",
+    "property",
+    "write",
+    "deep",
+    "nested",
+    "associative"
+  ],
+  "author": "ahdinosaur",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/openappjs/set-in/issues"
+  },
+  "homepage": "https://github.com/openappjs/set-in",
+  "devDependencies": {
+    "tape": "^2.14.0"
+  }
+}

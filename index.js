@@ -1,5 +1,17 @@
+var traverse = require('traverse');
+
 module.exports = setIn;
 
+function setIn (object, path, value) {
+  if (!object || !Array.isArray(path)) {
+    return
+  }
+
+  traverse(object).set(path, value);
+  return object;
+}
+
+/*
 var defaultSet = function set (object, key, value) {
   if (object) {
     object[key] = value;
@@ -8,6 +20,7 @@ var defaultSet = function set (object, key, value) {
 }
 
 function setIn (object, path, value) {
+
   if (!(path instanceof Array) || path.length === 0) {
     return;
   }
@@ -25,7 +38,7 @@ function setIn (object, path, value) {
     set = defaultSet.bind(null, object);
   }
 
-  console.log(object, path, value, key)
+  console.log(object, path, key, value)
 
   if (path.length === 0) {
     return set(object, key, value);
@@ -35,3 +48,4 @@ function setIn (object, path, value) {
     return set(object, key, setIn(object[key], path, value));
   }
 }
+*/

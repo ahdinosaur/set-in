@@ -9,7 +9,7 @@ test("non-Array path", function (t) {
 });
 
 test("a simple overwrite", function (t) {
-  t.equal(
+  t.deepEqual(
     setIn(
       {
         "a": "b",

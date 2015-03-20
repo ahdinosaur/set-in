@@ -1,154 +1,154 @@
-var test = require('tape');
-var setIn = require('../');
+var test = require('tape')
+var setIn = require('../')
 
-test("non-Array path", function (t) {
-  t.equal(setIn({ "a": { "b": "c" }}, undefined), undefined);
-  t.equal(setIn({ "a": { "b": "c" }}, "a.b"), undefined);
-  t.equal(setIn({ "a": { "b": "c" }}, { "a": "b"}), undefined);
-  t.end();
-});
+test('non-Array path', function (t) {
+  t.equal(setIn({ 'a': { 'b': 'c' }}, undefined), undefined)
+  t.equal(setIn({ 'a': { 'b': 'c' }}, 'a.b'), undefined)
+  t.equal(setIn({ 'a': { 'b': 'c' }}, { 'a': 'b'}), undefined)
+  t.end()
+})
 
-test("a simple overwrite", function (t) {
+test('a simple overwrite', function (t) {
   t.deepEqual(
     setIn(
       {
-        "a": "b",
+        'a': 'b',
       },
-      ["a"],
-      "c"
+      ['a'],
+      'c'
     ),
     {
-      "a": "c",
+      'a': 'c',
     }
-  );
-  t.end();
-});
+  )
+  t.end()
+})
 
-test("a two-level path", function (t) {
+test('a two-level path', function (t) {
   t.deepEqual(
     setIn(
       {
-        "a": {
-          "b": "c",
+        'a': {
+          'b': 'c',
         },
       },
-      ["a", "b"],
-      "d"
+      ['a', 'b'],
+      'd'
     ),
     {
-      "a": {
-        "b": "d",
+      'a': {
+        'b': 'd',
       },
     }
-  );
-  t.end();
-});
+  )
+  t.end()
+})
 
-test("a two-level path into arrays", function (t) {
+test('a two-level path into arrays', function (t) {
   t.deepEqual(
     setIn(
       [
-        "a",
+        'a',
         [
-          "b",
-          "c",
+          'b',
+          'c',
         ],
       ],
       [1, 1],
-      "d"
+      'd'
     ),
     [
-      "a",
+      'a',
       [
-        "b",
-        "d",
+        'b',
+        'd',
       ],
     ]
-  );
-  t.end();
-});
+  )
+  t.end()
+})
 
-test("an unresolved path", function (t) {
+test('an unresolved path', function (t) {
   t.deepEqual(
     setIn(
       {
-        "a": {
-          "b": "c",
+        'a': {
+          'b': 'c',
         },
       },
-      ["a", "x"],
-      "d"
+      ['a', 'x'],
+      'd'
     ),
     {
-      "a": {
-        "b": "c",
-        "x": "d",
+      'a': {
+        'b': 'c',
+        'x': 'd',
       },
     }
-  );
-  t.end();
-});
+  )
+  t.end()
+})
 
-test("a path that resolves to undefined property", function (t) {
+test('a path that resolves to undefined property', function (t) {
   t.deepEqual(
     setIn(
       {
-        "a": {
-          "b": undefined,
+        'a': {
+          'b': undefined,
         },
       },
-      ["a", "b"],
-      "c"
+      ['a', 'b'],
+      'c'
     ),
     {
-      "a": {
-        "b": "c",
+      'a': {
+        'b': 'c',
       },
     }
-  );
-  t.end();
-});
+  )
+  t.end()
+})
 
-test("a path that resolves to null property", function (t) {
+test('a path that resolves to null property', function (t) {
   t.deepEqual(
     setIn(
       {
-        "a": {
-          "b": null,
+        'a': {
+          'b': null,
         },
       },
-      ["a", "b"],
-      "d"
+      ['a', 'b'],
+      'd'
     ),
     {
-      "a": {
-        "b": "d",
+      'a': {
+        'b': 'd',
       },
     }
-  );
-  t.end();
-});
+  )
+  t.end()
+})
 
 /*
-test("object with custom get function", function (t) {
+test('object with custom get function', function (t) {
   function Obj (props) {
-    this.props = props;
+    this.props = props
   }
   Obj.prototype.get = function get (key) {
-    return this.props[key];
-  };
+    return this.props[key]
+  }
 
   t.deepEqual(
     setIn(
       new Obj({
-        "a": new Obj({
-          "b": "c"
+        'a': new Obj({
+          'b': 'c'
         }),
       }),
-      ["a", "b"]
+      ['a', 'b']
     ),
-    "c"
-  );
-  t.end();
-});
+    'c'
+  )
+  t.end()
+})
 */

@@ -7,7 +7,8 @@
     "test": "test"
   },
   "scripts": {
-    "test": "tape test"
+    "test": "tape test",
+    "style": "standard"
   },
   "repository": {
     "type": "git",
@@ -28,6 +29,7 @@
   },
   "homepage": "https://github.com/openappjs/set-in",
   "devDependencies": {
+    "standard": "^3.2.0",
     "tape": "^3.5.0"
   },
   "dependencies": {}

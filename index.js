@@ -1,4 +1,4 @@
-module.exports = setIn;
+module.exports = setIn
 
 function setIn (object, path, value) {
   if (!object || !Array.isArray(path)) {
@@ -17,8 +17,8 @@ function setIn (object, path, value) {
 
   var key = path[i]
 
-  if(key === '-') {
-    if(!Array.isArray(object)) {
+  if (key === '-') {
+    if (!Array.isArray(object)) {
       return
     }
 

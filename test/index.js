@@ -24,25 +24,28 @@ test("a simple overwrite", function (t) {
   t.end();
 });
 
-/*
-
 test("a two-level path", function (t) {
-  t.equal(
+  t.deepEqual(
     setIn(
       {
         "a": {
           "b": "c",
         },
       },
-      ["a", "b"]
+      ["a", "b"],
+      "d"
     ),
-    "c"
+    {
+      "a": {
+        "b": "d",
+      },
+    }
   );
   t.end();
 });
 
 test("a two-level path into arrays", function (t) {
-  t.equal(
+  t.deepEqual(
     setIn(
       [
         "a",
@@ -51,58 +54,82 @@ test("a two-level path into arrays", function (t) {
           "c",
         ],
       ],
-      [1, 1]
+      [1, 1],
+      "d"
     ),
-    "c"
+    [
+      "a",
+      [
+        "b",
+        "d",
+      ],
+    ]
   );
   t.end();
 });
 
 test("an unresolved path", function (t) {
-  t.equal(
+  t.deepEqual(
     setIn(
       {
         "a": {
           "b": "c",
         },
       },
-      ["a", "x"]
+      ["a", "x"],
+      "d"
     ),
-    undefined
+    {
+      "a": {
+        "b": "c",
+        "x": "d",
+      },
+    }
   );
   t.end();
 });
 
 test("a path that resolves to undefined property", function (t) {
-  t.equal(
+  t.deepEqual(
     setIn(
       {
         "a": {
           "b": undefined,
         },
       },
-      ["a", "b"]
+      ["a", "b"],
+      "c"
     ),
-    undefined
+    {
+      "a": {
+        "b": "c",
+      },
+    }
   );
   t.end();
 });
 
 test("a path that resolves to null property", function (t) {
-  t.equal(
+  t.deepEqual(
     setIn(
       {
         "a": {
           "b": null,
         },
       },
-      ["a", "b"]
+      ["a", "b"],
+      "d"
     ),
-    null
+    {
+      "a": {
+        "b": "d",
+      },
+    }
   );
   t.end();
 });
 
+/*
 test("object with custom get function", function (t) {
   function Obj (props) {
     this.props = props;
@@ -111,7 +138,7 @@ test("object with custom get function", function (t) {
     return this.props[key];
   };
 
-  t.equal(
+  t.deepEqual(
     setIn(
       new Obj({
         "a": new Obj({
@@ -124,5 +151,4 @@ test("object with custom get function", function (t) {
   );
   t.end();
 });
-
 */

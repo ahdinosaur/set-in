@@ -28,7 +28,7 @@
   },
   "homepage": "https://github.com/openappjs/set-in",
   "devDependencies": {
-    "tape": "^2.14.0"
+    "tape": "^3.5.0"
   },
   "dependencies": {}
 }

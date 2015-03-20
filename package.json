@@ -30,7 +30,5 @@
   "devDependencies": {
     "tape": "^2.14.0"
   },
-  "dependencies": {
-    "traverse": "^0.6.6"
-  }
+  "dependencies": {}
 }

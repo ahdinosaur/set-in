@@ -1,5 +1,3 @@
-var traverse = require('traverse');
-
 module.exports = setIn;
 
 function setIn (object, path, value) {
@@ -7,45 +5,29 @@ function setIn (object, path, value) {
     return
   }
 
-  traverse(object).set(path, value);
-  return object;
-}
+  var original = object
 
-/*
-var defaultSet = function set (object, key, value) {
-  if (object) {
-    object[key] = value;
-  }
-  return object;
-}
-
-function setIn (object, path, value) {
-
-  if (!(path instanceof Array) || path.length === 0) {
-    return;
+  for (var i = 0, len = path.length - 1; i < len; i++) {
+    object = (object || {}) && object[path[i]]
   }
 
-  if (!object) {
-    return object;
+  if (typeof object !== 'object') {
+    return false
   }
 
-  var key = path.shift();
+  var key = path[i]
 
-  var get;
-  if (object.set) {
-    set = object.set.bind(object);
+  if(key === '-') {
+    if(!Array.isArray(object)) {
+      return
+    }
+
+    object[object.length] = value
+
   } else {
-    set = defaultSet.bind(null, object);
+    object[key] = value
+
   }
 
-  console.log(object, path, key, value)
-
-  if (path.length === 0) {
-    return set(object, key, value);
-  }
-
-  if (path.length && object[key]) {
-    return set(object, key, setIn(object[key], path, value));
-  }
+  return original
 }
-*/

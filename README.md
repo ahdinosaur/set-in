@@ -1,12 +1,8 @@
 # set-in
 
-## NOT USABLE
-
 set value of nested associative structure given array of keys
 
 inspired by [clojure.core/set-in](http://clojuredocs.org/clojure_core/1.2.0/clojure.core/set-in).
-
-some code stolen from [cosmosio/nested-property](https://github.com/cosmosio/nested-property).
 
 ## install
 

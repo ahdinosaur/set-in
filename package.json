@@ -7,12 +7,11 @@
     "test": "test"
   },
   "scripts": {
-    "test": "tape test",
-    "style": "standard"
+    "test": "standard && tape test/*.js"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/openappjs/set-in.git"
+    "url": "git://github.com/ahdinosaur/set-in.git"
   },
   "keywords": [
     "object",
@@ -23,14 +22,14 @@
     "associative"
   ],
   "author": "ahdinosaur",
-  "license": "ISC",
+  "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/openappjs/set-in/issues"
+    "url": "https://github.com/ahdinosaur/set-in/issues"
   },
-  "homepage": "https://github.com/openappjs/set-in",
+  "homepage": "https://github.com/ahdinosaur/set-in",
   "devDependencies": {
-    "standard": "^3.2.0",
-    "tape": "^3.5.0"
+    "standard": "^3.13.2",
+    "tape": "^4.6.0"
   },
   "dependencies": {}
 }

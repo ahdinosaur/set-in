@@ -1,10 +1,10 @@
-var test = require('tape')
-var setIn = require('../')
+const test = require('tape')
+const setIn = require('../')
 
 test('non-Array path', function (t) {
-  t.equal(setIn({ 'a': { 'b': 'c' }}, undefined), undefined)
-  t.equal(setIn({ 'a': { 'b': 'c' }}, 'a.b'), undefined)
-  t.equal(setIn({ 'a': { 'b': 'c' }}, { 'a': 'b'}), undefined)
+  t.throws(() => setIn({ 'a': { 'b': 'c' }}, undefined))
+  t.throws(() => setIn({ 'a': { 'b': 'c' }}, 'a.b'))
+  t.throws(() => setIn({ 'a': { 'b': 'c' }}, { 'a': 'b'}))
   t.end()
 })
 
@@ -12,13 +12,13 @@ test('a simple overwrite', function (t) {
   t.deepEqual(
     setIn(
       {
-        'a': 'b',
+        'a': 'b'
       },
       ['a'],
       'c'
     ),
     {
-      'a': 'c',
+      'a': 'c'
     }
   )
   t.end()
@@ -29,16 +29,16 @@ test('a two-level path', function (t) {
     setIn(
       {
         'a': {
-          'b': 'c',
-        },
+          'b': 'c'
+        }
       },
       ['a', 'b'],
       'd'
     ),
     {
       'a': {
-        'b': 'd',
-      },
+        'b': 'd'
+      }
     }
   )
   t.end()
@@ -51,8 +51,8 @@ test('a two-level path into arrays', function (t) {
         'a',
         [
           'b',
-          'c',
-        ],
+          'c'
+        ]
       ],
       [1, 1],
       'd'
@@ -61,8 +61,8 @@ test('a two-level path into arrays', function (t) {
       'a',
       [
         'b',
-        'd',
-      ],
+        'd'
+      ]
     ]
   )
   t.end()
@@ -73,8 +73,8 @@ test('an unresolved path', function (t) {
     setIn(
       {
         'a': {
-          'b': 'c',
-        },
+          'b': 'c'
+        }
       },
       ['a', 'x'],
       'd'
@@ -82,8 +82,31 @@ test('an unresolved path', function (t) {
     {
       'a': {
         'b': 'c',
-        'x': 'd',
+        'x': 'd'
+      }
+    }
+  )
+  t.end()
+})
+
+test('a deep unresolved path', function (t) {
+  t.deepEqual(
+    setIn(
+      {
+        'a': {
+          'b': 'c'
+        }
       },
+      ['a', 'x', 'y'],
+      'd'
+    ),
+    {
+      'a': {
+        'b': 'c',
+        'x': {
+          'y': 'd'
+        }
+      }
     }
   )
   t.end()
@@ -94,16 +117,16 @@ test('a path that resolves to undefined property', function (t) {
     setIn(
       {
         'a': {
-          'b': undefined,
-        },
+          'b': undefined
+        }
       },
       ['a', 'b'],
       'c'
     ),
     {
       'a': {
-        'b': 'c',
-      },
+        'b': 'c'
+      }
     }
   )
   t.end()
@@ -114,16 +137,16 @@ test('a path that resolves to null property', function (t) {
     setIn(
       {
         'a': {
-          'b': null,
-        },
+          'b': null
+        }
       },
       ['a', 'b'],
       'd'
     ),
     {
       'a': {
-        'b': 'd',
-      },
+        'b': 'd'
+      }
     }
   )
   t.end()

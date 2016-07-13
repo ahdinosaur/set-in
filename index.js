@@ -1,33 +1,34 @@
+var assert = require('assert')
+
 module.exports = setIn
 
 function setIn (object, path, value) {
-  if (!object || !Array.isArray(path)) {
-    return
+  assert.equal(typeof object, 'object', 'setIn: expected object as first argument.')
+  assert.ok(Array.isArray(path), 'setIn: expected array path as second argument.')
+
+  return recursivelySetIn(object, path, value, 0)
+}
+
+function recursivelySetIn (object, path, value, index) {
+  if (index === path.length) {
+    return value
   }
 
-  var original = object
+  object = object || {}
 
-  for (var i = 0, len = path.length - 1; i < len; i++) {
-    object = (object || {}) && object[path[i]]
-  }
-
-  if (typeof object !== 'object') {
-    return false
-  }
-
-  var key = path[i]
+  var key = path[index]
 
   if (key === '-') {
-    if (!Array.isArray(object)) {
-      return
-    }
-
-    object[object.length] = value
-
-  } else {
-    object[key] = value
-
+    assert.ok(Array.isArray(object), 'setIn: "-" in path must correspond to array.')
+    key = object.length
   }
 
-  return original
+  var next = recursivelySetIn(object[key], path, value, ++index)
+
+  return set(object, key, next)
+}
+
+function set (object, key, value) {
+  object[key] = value
+  return object
 }

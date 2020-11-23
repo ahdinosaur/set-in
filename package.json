@@ -1,6 +1,6 @@
 {
   "name": "set-in",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "set value of nested associative structure given array of keys",
   "main": "index.js",
   "directories": {

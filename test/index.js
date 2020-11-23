@@ -2,9 +2,9 @@ const test = require('tape')
 const setIn = require('../')
 
 test('non-Array path', function (t) {
-  t.throws(() => setIn({ 'a': { 'b': 'c' }}, undefined))
-  t.throws(() => setIn({ 'a': { 'b': 'c' }}, 'a.b'))
-  t.throws(() => setIn({ 'a': { 'b': 'c' }}, { 'a': 'b'}))
+  t.throws(() => setIn({ 'a': { 'b': 'c' }}, undefined, 'x'))
+  t.throws(() => setIn({ 'a': { 'b': 'c' }}, 'a.b', 'x'))
+  t.throws(() => setIn({ 'a': { 'b': 'c' }}, { 'a': 'b'}, 'x'))
   t.end()
 })
 
@@ -175,3 +175,15 @@ test('object with custom get function', function (t) {
   t.end()
 })
 */
+
+test('prototype pollution', function (t) {
+  t.throws(() => setIn({ 'a': { 'b': 'c' }}, ['__proto__'], { a: 'x' }))
+  t.throws(() => setIn({ 'a': { 'b': 'c' }}, ['__proto__', 'a'], 'x'))
+  t.throws(() => setIn({ 'a': { 'b': 'c' }}, ['a', '__proto__'], 'x'))
+  t.throws(() => setIn({ 'a': { 'b': 'c' }}, ['constructor', 'prototype'], { a: 'x' }))
+  t.throws(() => setIn({ 'a': { 'b': 'c' }}, ['constructor', 'prototype', 'a'], 'x'))
+  setIn({ 'a': { 'b': 'c' }}, ['prototype', 'a'], 'x')
+  setIn({ 'a': { 'b': 'c' }}, ['constructor'], 'x')
+  t.end()
+})
+

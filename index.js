@@ -35,12 +35,6 @@ function recursivelySetIn (object, path, value, index) {
     key = object.length
   }
 
-  if (
-    key === '__proto__' ||
-    (key === 'constructor' && path[index + 1] === 'prototype')) {
-
-  }
-
   var next = recursivelySetIn(object[key], path, value, ++index)
 
   return set(object, key, next)

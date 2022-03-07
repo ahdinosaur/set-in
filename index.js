@@ -5,6 +5,10 @@ module.exports = setIn
 function setIn (object, path, value) {
   assert.equal(typeof object, 'object', 'setIn: expected object as first argument.')
   assert.ok(Array.isArray(path), 'setIn: expected array path as second argument.')
+  assert.ok(
+    path.every(p => typeof p === 'number' || typeof p === 'string'),
+    'setIn: expected array path (of strings and numbers) as second argument.'
+  )
 
   return recursivelySetIn(object, path, value, 0)
 }
@@ -15,18 +19,6 @@ function recursivelySetIn (object, path, value, index) {
   }
 
   object = object || {}
-
-  // https://stackoverflow.com/a/60850027
-  assert.ok(
-    path[index] !== '__proto__',
-    'setIn: "__proto__" is disallowed in path due to possible prototype pollution attack.'
-  )
-  if (index < path.length - 1) {
-    assert.ok(
-      path[index] !== 'constructor' && path[index + 1] !== 'prototype',
-      'setIn: ["constructor", "prototype"] is disallowed in path due to possible prototype pollution attack.'
-    )
-  }
 
   var key = path[index]
 
@@ -40,7 +32,12 @@ function recursivelySetIn (object, path, value, index) {
   return set(object, key, next)
 }
 
+const POLLUTED_KEYS = ['__proto__', 'constructor', 'prototype']
+
 function set (object, key, value) {
+  // CVE-2020-28273
+  assert.ok(!POLLUTED_KEYS.includes(key), `setIn: ${key} is disallowed in path due to possible prototype pollution attack.`)
+
   object[key] = value
   return object
 }

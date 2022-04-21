@@ -178,16 +178,24 @@ test('object with custom get function', function (t) {
 
 test('prototype pollution', function (t) {
   t.throws(() => setIn({ 'a': { 'b': 'c' }}, ['__proto__'], { a: 'x' }))
+  t.notEqual({}.a, 'x')
   t.throws(() => setIn({ 'a': { 'b': 'c' }}, [['__proto__']], { a: 'x' }))
+  t.notEqual({}.a, 'x')
   t.throws(() => setIn({ 'a': { 'b': 'c' }}, ['__proto__', 'a'], 'x'))
+  t.notEqual({}.a, 'x')
   t.throws(() => setIn({ 'a': { 'b': 'c' }}, [['__proto__'], 'a'], 'x'))
+  t.notEqual({}.a, 'x')
   t.throws(() => setIn({ 'a': { 'b': 'c' }}, ['a', '__proto__'], 'x'))
+  t.notEqual({}.a, 'x')
   t.throws(() => setIn({ 'a': { 'b': 'c' }}, ['a', ['__proto__']], 'x'))
+  t.notEqual({}.a, 'x')
   t.throws(() => setIn({ 'a': { 'b': 'c' }}, ['constructor', 'prototype'], { a: 'x' }))
+  t.notEqual({}.a, 'x')
   t.throws(() => setIn({ 'a': { 'b': 'c' }}, ['constructor', 'prototype', 'a'], 'x'))
+  t.notEqual({}.a, 'x')
   t.throws(() => setIn({ 'a': { 'b': 'c' }}, ['prototype', 'a'], 'x'))
+  t.notEqual({}.a, 'x')
   t.throws(() => setIn({ 'a': { 'b': 'c' }}, ['constructor'], 'x'))
-
   t.end()
 })
 

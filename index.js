@@ -21,6 +21,7 @@ function recursivelySetIn (object, path, value, index) {
   object = object || {}
 
   var key = path[index]
+  assert.ok(!POLLUTED_KEYS.includes(key), `recursivelySetIn: ${key} is disallowed in path due to possible prototype pollution attack.`)
 
   if (key === '-') {
     assert.ok(Array.isArray(object), 'setIn: "-" in path must correspond to array.')

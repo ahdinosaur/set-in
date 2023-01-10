@@ -28,7 +28,7 @@
   },
   "homepage": "https://github.com/ahdinosaur/set-in",
   "devDependencies": {
-    "standard": "^3.13.2",
+    "standard": "^17.0.0",
     "tape": "^4.6.0"
   },
   "dependencies": {}

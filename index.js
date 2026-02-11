@@ -13,8 +13,6 @@ function setIn (object, path, value) {
   return recursivelySetIn(object, path, value, 0)
 }
 
-const POLLUTED_KEYS = ['__proto__', 'constructor', 'prototype']
-
 function recursivelySetIn (object, path, value, index) {
   if (index === path.length) {
     return value
@@ -25,7 +23,9 @@ function recursivelySetIn (object, path, value, index) {
   var key = path[index]
 
   // CVE-2020-28273
-  assert.ok(!POLLUTED_KEYS.includes(key), `setIn: ${key} is disallowed in path due to possible prototype pollution attack.`)
+  if(key == "constructor" || key == "prototype" || key == "__proto__"){
+    throw `setIn: ${key} is disallowed in path due to possible prototype pollution attack.`
+  }
 
   if (key === '-') {
     assert.ok(Array.isArray(object), 'setIn: "-" in path must correspond to array.')

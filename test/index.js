@@ -199,3 +199,17 @@ test('prototype pollution', function (t) {
   t.end()
 })
 
+test('resilience against hijacked Array.prototype.includes', function (t) {
+  const originalIncludes = Array.prototype.includes;  
+  Array.prototype.includes = () => false;
+  const obj = {};
+
+  t.throws(() => {
+    setIn(obj, ['constructor', 'prototype', 'polluted'], 'yes');
+  }, 'should still block prototype access even if Array.includes is hijacked');
+
+  t.notEqual({}.polluted, 'yes', 'global prototype should not be polluted');
+
+  Array.prototype.includes = originalIncludes;  
+  t.end();
+});

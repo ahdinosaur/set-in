@@ -23,9 +23,10 @@ function recursivelySetIn (object, path, value, index) {
   var key = path[index]
 
   // CVE-2020-28273
-  if (key === 'constructor' || key === 'prototype' || key === '__proto__') {
-    throw `setIn: ${key} is disallowed in path due to possible prototype pollution attack.`
-  }
+  assert.ok(
+    key !== 'constructor' && key !== 'prototype' && key !== '__proto__',
+    `setIn: ${key} is disallowed in path due to possible prototype pollution attack.`
+  )
 
   if (key === '-') {
     assert.ok(Array.isArray(object), 'setIn: "-" in path must correspond to array.')

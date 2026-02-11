@@ -200,16 +200,16 @@ test('prototype pollution', function (t) {
 })
 
 test('resilience against hijacked Array.prototype.includes', function (t) {
-  const originalIncludes = Array.prototype.includes;  
-  Array.prototype.includes = () => false;
-  const obj = {};
+  const originalIncludes = Array.prototype.includes
+  Array.prototype.includes = () => false // eslint-disable-line
+  const obj = {}
 
   t.throws(() => {
-    setIn(obj, ['constructor', 'prototype', 'polluted'], 'yes');
-  }, 'should still block prototype access even if Array.includes is hijacked');
+    setIn(obj, ['constructor', 'prototype', 'polluted'], 'yes')
+  }, 'should still block prototype access even if Array.includes is hijacked')
 
-  t.notEqual({}.polluted, 'yes', 'global prototype should not be polluted');
+  t.notEqual({}.polluted, 'yes', 'global prototype should not be polluted')
 
-  Array.prototype.includes = originalIncludes;  
-  t.end();
-});
+  Array.prototype.includes = originalIncludes // eslint-disable-line
+  t.end()
+})
